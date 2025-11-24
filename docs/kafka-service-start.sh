@@ -1,4 +1,4 @@
-KAFKA_DIR="/app/kafka4/"
+KAFKA_DIR="/opt/kafka4/"
 
 KAFKA_LOG="${KAFKA_DIR}/logs/kafka.out"
 
