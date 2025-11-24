@@ -138,6 +138,8 @@ Each node of cluster server1.properties is under the node-{number} folders.
 
 # 5 Generate  the cluster id
 
+    export JAVA_HOME=/opt/jdk
+    export PATH=$PATH:$JAVA_HOME/bin
     ./bin/kafka-storage.sh random-uuid
 
 Cluster ID : b42Uz-P1SEyPl5jQdNakTm
