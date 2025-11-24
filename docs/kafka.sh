@@ -5,10 +5,10 @@
 # Then use with the following commands:
 #
 # kafka start|stop|log
-JAVA_HOME=/app/jdk/openjdk-23.0.2
-export PATH=$PATH:$JAVA17_HOME/bin;
+JAVA_HOME=/opt/jdk
+export PATH=$PATH:$JAVA_HOME/bin;
 
-KAFKA_DIR="/app/kafka4"
+KAFKA_DIR="/opt/kafka4"
 LOG_DIR="${KAFKA_DIR}/logs"
 
 KAFKA_LOG="${LOG_DIR}/kafka.out"
