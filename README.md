@@ -32,9 +32,9 @@ Assume that the servers' ips (10.123.61.61,10.123.61.62,10.123.61.63)
 
 Directory hierarchy
 
-    /app/jdk #jdk folder
+    /opt/jdk #jdk folder
 
-    /app/kafka4 #kafka folder
+    /opt/kafka4 #kafka folder
 
 All scripts' paths are depended on the directory hierarchy.
 
@@ -48,7 +48,7 @@ https://download.java.net/openjdk/jdk23/ri/openjdk-23+37_linux-x64_bin.tar.gz
 
     tar -zxvf openjdk-23+37_linux-x64_bin.tar.gz
 
-    mv jdk-23 /app/jdk
+    mv jdk-23/* /opt/jdk
 
 # 2 - Download kafka
 
@@ -60,27 +60,27 @@ https://dlcdn.apache.org/kafka/4.0.0/kafka_2.13-4.0.0.tgz
 
     tar -zxvf kafka_2.13-4.0.0.tgz
 
-    mv kafka_2.13-4.0.0 kafka4
+    mv kafka_2.13-4.0.0/* kafka4
 
 # 3 Create directories for logs, data logs, scripts
 
 create directory for kafka server logs
 
-    mkdir /app/kafka4/logs
+    mkdir /opt/kafka4/logs
 
 create directory for kafka messaging, metadata logs (important logs)
 
-    mkdir /app/kafka4/data/metadata-logs
+    mkdir /opt/kafka4/data/metadata-logs
 
-    mkdir /app/kafka4/data/kraft-combined-logs
+    mkdir /opt/kafka4/data/kraft-combined-logs
 
 create directory for scripts
 
-    mkdir /app/kafka4/scripts
+    mkdir /opt/kafka4/scripts
 
 # 4 Configure kafka kraft server properties
 
-    cd /app/kafka4/config/
+    cd /opt/kafka4/config/
 
 edit the server1.properties using vim or nano editor.
 
@@ -106,9 +106,9 @@ broker use 9092 port for clients, controller use 19092 port for quorum in cluste
 
 A comma separated list of directories under which to store log files
 
-    log.dirs=/app/kafka4/data/kraft-combined-logs
+    log.dirs=/opt/kafka4/data/kraft-combined-logs
     
-    metadata.log.dir=/app/kafka4/data/metadata-logs
+    metadata.log.dir=/opt/kafka4/data/metadata-logs
     
 The default number of log partitions per topic. More partitions allow greater
 parallelism for consumption, but this will also result in more files across
@@ -148,8 +148,8 @@ Cluster ID : b42Uz-P1SEyPl5jQdNakTm
 
 Output :
 
-Formatting metadata directory /app/kafka4/data/metadata-logs with metadata.version 4.0-IV3.
-Formatting data directory /app/kafka4/data/kraft-combined-logs with metadata.version 4.0-IV3.
+Formatting metadata directory /opt/kafka4/data/metadata-logs with metadata.version 4.0-IV3.
+Formatting data directory /opt/kafka4/data/kraft-combined-logs with metadata.version 4.0-IV3.
 
 Use the cluster id formatting for all nodes.
 
@@ -168,10 +168,10 @@ The kafka.sh file is under the docs.
 # Then use with the following commands:
 #
 # kafka start|stop|log
-JAVA_HOME=/app/jdk/openjdk-23.0.2
+JAVA_HOME=/opt/jdk/openjdk-23.0.2
 export PATH=$PATH:$JAVA17_HOME/bin;
 
-KAFKA_DIR="/app/kafka4"
+KAFKA_DIR="/opt/kafka4"
 LOG_DIR="${KAFKA_DIR}/logs"
 
 KAFKA_LOG="${LOG_DIR}/kafka.out"
@@ -245,12 +245,12 @@ fi
 
 alias of kafka scripts
 
-    export KFK_SCRIPTS="/app/kafka4/scripts"
+    export KFK_SCRIPTS="/opt/kafka4/scripts"
     alias kafka="${KFK_SCRIPTS}/kafka.sh kafka"
 
 set jdk to path
 
-    export JAVA_HOME=/app/jdk
+    export JAVA_HOME=/opt/jdk
     export PATH=$PATH:$JAVA_HOME/bin
 
 set kafka heap options
@@ -265,7 +265,7 @@ set kafka heap options
     [Service]
     Type=forking
     User=appuser
-    ExecStart=/app/kafka4/scripts/kafka-service-start.sh --no-daemon
+    ExecStart=/opt/kafka4/scripts/kafka-service-start.sh --no-daemon
     Restart=always
     RestartSec=60
     TimeoutStopSec=60
